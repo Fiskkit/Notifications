@@ -151,5 +151,5 @@ server.addListener('upgrade', function(req,res){
 
 sockjs_echo.installHandlers(server, {prefix:'/notifications'});
 
-console.log(' [*] Listening on 0.0.0.0:9500' );
+console.log(' [*] Listening on 0.0.0.0:443' );
 server.listen(9500, '0.0.0.0');
