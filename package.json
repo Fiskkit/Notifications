@@ -1,0 +1,15 @@
+{
+  "name": "notification-service",
+  "description": "Real-time notifications with websockets",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "express": "3.4.4",
+    "redis": "0.12.1",
+    "sockjs": "0.3.11",
+    "MD5": "1.2.1",
+    "hashmap": "2.0.0",
+    "hiredis": "0.1.17",
+    "node-static": "0.7.6"
+  }
+}
