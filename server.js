@@ -9,8 +9,8 @@ var md5 = require('MD5');
 // Setup Redis pub/sub.
 // NOTE: You must create two Redis clients, as 
 // the one that subscribes can't also publish.
-var pub = redis.createClient(6379, 'general.lsbcdc.0001.usw1.cache.amazonaws.com',{});
-var sub = redis.createClient(6379, 'general.lsbcdc.0001.usw1.cache.amazonaws.com',{});
+var pub = redis.createClient(6379, process.env.redis_endpoint,{});
+var sub = redis.createClient(6379, process.env.redis_endpoint,{});
 var clients = [];
 var map = new HashMap();
 var txUrl = "http://54.67.4.189:7474/db/data/transaction/commit";
