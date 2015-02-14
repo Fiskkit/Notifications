@@ -4,7 +4,7 @@ var redis = require('redis');
 var HashMap = require('hashmap').HashMap;
 var r = require("request");
 var md5 = require('MD5');
-var scribe = require('../scribe.js')({
+var scribe = require('scribe-js')({
     createDefaultConsole : false
 });
 
