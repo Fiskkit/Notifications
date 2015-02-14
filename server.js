@@ -4,13 +4,28 @@ var redis = require('redis');
 var HashMap = require('hashmap').HashMap;
 var r = require("request");
 var md5 = require('MD5');
+var scribe = require('../scribe.js')({
+    createDefaultConsole : false
+});
+
+
+var socketConsole = scribe.console({
+    console : {
+        colors : 'blue'
+    },
+    logWriter : {
+        rootPath : 'WebSocketLogs' //all logs in ./WebSocketLogs
+    }
+});
 
 
 // Setup Redis pub/sub.
 // NOTE: You must create two Redis clients, as 
 // the one that subscribes can't also publish.
-var pub = redis.createClient(6379, process.env.redis_endpoint,{});
-var sub = redis.createClient(6379, process.env.redis_endpoint,{});
+socketConsole.time().log(process.env);
+socketConsole.time().log(process.env.REDIS_ENDPOINT);
+var pub = redis.createClient(6379, process.env.REDIS_ENDPOINT,{});
+var sub = redis.createClient(6379, process.env.REDIS_ENDPOINT,{});
 var clients = [];
 var map = new HashMap();
 var txUrl = "http://54.67.4.189:7474/db/data/transaction/commit";
@@ -54,7 +69,7 @@ sockjs_echo.on('connection', function(conn) {
 	var formattedTime = t.format("dd.mm.yyyy hh:MM:ss");*/
 
     console.log('--------------------NEW CONNECTION--------------------');
-	console.log(' Client: ' + conn + ' connected');
+	socketConsole.time().log(' Client: ' + conn + ' connected');
 
 	map.forEach(function(value, key) {
 
