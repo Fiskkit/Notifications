@@ -183,16 +183,22 @@ sockjs_echo.on('connection', function(conn) {
 // 2. Static files server
 //var static_directory = new node_static.Server(__dirname);
 
-// 3. Usual http stuff
+
+//Create a server to listen on Port 80 so we can pass our OpsWorks health checks
+var health = http.createServer();
+//Usual http stuff
 var server = http.createServer();
-/*server.addListener('request', function(req, res) {
+
+/*health.addListener('request', function(req, res) {
 	static_directory.serve(req, res);
-});
-server.addListener('upgrade', function(req,res){
-	res.end();
 });*/
 
-sockjs_echo.installHandlers(server, {prefix:'/notifications'});
 
+server.addListener('upgrade', function(req,res){
+	res.end();
+});
+
+sockjs_echo.installHandlers(server, {prefix:'/notifications'});
 console.log(' [*] Listening on 0.0.0.0:9500' );
+health.listen(80, '0.0.0.0');
 server.listen(9500, '0.0.0.0');
