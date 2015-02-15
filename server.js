@@ -12,7 +12,14 @@ var graylog2 = require("graylog2");
 var logger = new graylog2.graylog({
     servers: [
         { 'host': "logs.fiskkit.com", port: 5556 }
-    ]
+    ],
+    hostname: 'notifications.uwan.DEV', // the name of this host 
+                             // (optional, default: os.hostname()) 
+    facility: 'Node.js',     // the facility for these log messages 
+                             // (optional, default: "Node.js") 
+    bufferSize: 1400         // max UDP packet size, should never exceed the 
+                             // MTU of your system (optional, default: 1400) 
+
     });
 
 
@@ -29,7 +36,7 @@ var socketConsole = scribe.console({
 // Setup Redis pub/sub.
 // NOTE: You must create two Redis clients, as 
 // the one that subscribes can't also publish.
-logger.log(process.env);
+logger.log(JSON.stringify(process.env));
 logger.log(process.env.REDIS_ENDPOINT);
 socketConsole.time().log(process.env);
 socketConsole.time().log(process.env.REDIS_ENDPOINT);
@@ -79,6 +86,8 @@ sockjs_echo.on('connection', function(conn) {
 
     console.log('--------------------NEW CONNECTION--------------------');
 	socketConsole.time().log(' Client: ' + conn + ' connected');
+	logger.log(' Client: ' + conn + ' connected');
+
 
 	map.forEach(function(value, key) {
 
