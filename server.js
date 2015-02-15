@@ -38,8 +38,8 @@ var socketConsole = scribe.console({
 // the one that subscribes can't also publish.
 logger.log(JSON.stringify(process.env));
 logger.log(process.env.REDIS_ENDPOINT);
-socketConsole.time().log(process.env);
-socketConsole.time().log(process.env.REDIS_ENDPOINT);
+//socketConsole.time().log(process.env);
+//socketConsole.time().log(process.env.REDIS_ENDPOINT);
 var pub = redis.createClient(6379, process.env.REDIS_ENDPOINT,{});
 var sub = redis.createClient(6379, process.env.REDIS_ENDPOINT,{});
 var clients = [];
@@ -69,7 +69,9 @@ sub.on('message', function(channel, msg) {
 
   		clients = map.get(channel);
 		clients.forEach(function(conn){
-		conn.write(msg);			
+		conn.write(msg);
+		logger.log('message: ' + msg);
+			
 		});
     
 
@@ -167,6 +169,8 @@ sockjs_echo.on('connection', function(conn) {
 		});
 
         console.log('close ' + conn);
+       	logger.log('close ' + conn);
+
         console.log('--------------------CONNECTION CLOSED--------------------');
 
     });	
