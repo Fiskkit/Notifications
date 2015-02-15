@@ -185,6 +185,8 @@ var static_directory = new node_static.Server(__dirname);
 var health = http.createServer();
 health.addListener('request', function(req, res) {
 	static_directory.serve(req, res);
+	  res.write('Health\n');
+  	res.end();
 });
 
 
