@@ -44,7 +44,7 @@ var pub = redis.createClient(6379, process.env.REDIS_ENDPOINT,{});
 var sub = redis.createClient(6379, process.env.REDIS_ENDPOINT,{});
 var clients = [];
 var map = new HashMap();
-var txUrl = "http://172.31.5.202:7474/db/data/transaction/commit";
+var txUrl = "http://54.67.4.189:7474/db/data/transaction/commit";
 
 function cypher(query, params, cb) {
 	console.log("Request: " + query);
