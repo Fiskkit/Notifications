@@ -8,6 +8,13 @@ var scribe = require('scribe-js')({
     createDefaultConsole : false
 });
 
+var graylog2 = require("graylog2");
+var logger = new graylog2.graylog({
+    servers: [
+        { 'host': logs.fiskkit.com, port: 5555 }
+    ]
+    });
+
 
 var socketConsole = scribe.console({
     console : {
@@ -22,6 +29,8 @@ var socketConsole = scribe.console({
 // Setup Redis pub/sub.
 // NOTE: You must create two Redis clients, as 
 // the one that subscribes can't also publish.
+logger.log(process.env);
+logger.log(process.env.REDIS_ENDPOINT);
 socketConsole.time().log(process.env);
 socketConsole.time().log(process.env.REDIS_ENDPOINT);
 var pub = redis.createClient(6379, process.env.REDIS_ENDPOINT,{});
@@ -92,6 +101,8 @@ sockjs_echo.on('connection', function(conn) {
 			var cypherResult = {};
 			cypherResult = JSON.parse(data);
 			console.log(JSON.stringify(cypherResult));
+			logger.log(JSON.stringify(cypherResult));
+
 
 
 			var userChannels = cypherResult.results[0].data;
@@ -99,6 +110,8 @@ sockjs_echo.on('connection', function(conn) {
 			userChannels.forEach(function(channel) {
 
 				console.log("Article ID: " + channel.row[0].a_id);
+				logger.log("Article ID: " + channel.row[0].a_id);
+
 
 				if(channel.row[0].a_id){
 				var newChannel = "article." + channel.row[0].a_id;

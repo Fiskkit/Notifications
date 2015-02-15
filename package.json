@@ -12,6 +12,7 @@
     "hiredis": "0.1.17",
     "node-static": "0.7.6",
     "request": "2.53.0",
-    "scribe-js": "2.0.4"
+    "scribe-js": "2.0.4",
+    "graylog2": "0.1.3"
   }
 }
