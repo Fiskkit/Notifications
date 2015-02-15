@@ -102,6 +102,8 @@ sockjs_echo.on('connection', function(conn) {
 		userID = msg.userid;
 
 		console.log("User ID: " + userID);
+		logger.log("User ID: " + userID);
+
 		console.log("Smack: " + msg.smack);
 
 		var query = "MATCH (user:`User`)-[:FOLLOWS]->(following) WHERE user.uid = {userid} RETURN following LIMIT 100";
