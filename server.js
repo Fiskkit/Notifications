@@ -179,21 +179,17 @@ sockjs_echo.on('connection', function(conn) {
 
 
 });
-
-// 2. Static files server
-//var static_directory = new node_static.Server(__dirname);
-
-
 //Create a server to listen on Port 80 so we can pass our OpsWorks health checks
+//Static files server
+var static_directory = new node_static.Server(__dirname);
 var health = http.createServer();
+health.addListener('request', function(req, res) {
+	static_directory.serve(req, res);
+});
+
+
 //Usual http stuff
 var server = http.createServer();
-
-/*health.addListener('request', function(req, res) {
-	static_directory.serve(req, res);
-});*/
-
-
 server.addListener('upgrade', function(req,res){
 	res.end();
 });
