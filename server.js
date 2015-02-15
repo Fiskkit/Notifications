@@ -11,7 +11,7 @@ var scribe = require('scribe-js')({
 var graylog2 = require("graylog2");
 var logger = new graylog2.graylog({
     servers: [
-        { 'host': logs.fiskkit.com, port: 5555 }
+        { 'host': logs.fiskkit.com, port: 5556 }
     ]
     });
 
