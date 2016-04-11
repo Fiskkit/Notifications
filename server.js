@@ -13,7 +13,7 @@ var logger = new graylog2.graylog({
     servers: [
         { 'host': "logs.fiskkit.com", port: 5556 }
     ],
-    hostname: 'notifications.uwan.DEV', // the name of this host 
+    hostname: 'notifications.tsuchikorobi.PRCLN', // the name of this host 
                              // (optional, default: os.hostname()) 
     facility: 'Node.js',     // the facility for these log messages 
                              // (optional, default: "Node.js") 
